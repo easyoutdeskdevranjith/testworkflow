@@ -28,7 +28,7 @@ jobs:
     - run: npm run test
     - run: npm run lint
     - name: Deploy to GitHub Pages
-      uses: gh-pages/deploy@v1
+      uses: testworkflow/deploy@v1
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
         deploy-branch: main
