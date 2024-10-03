@@ -30,6 +30,6 @@ jobs:
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3  # Use a popular action for GitHub Pages
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+          github_token: ${{ secrets.PAT_TOKEN }}
           publish_dir: ./build              # Ensure this points to your build directory
           publish_branch: gh-pages          # Deploy to the gh-pages branch
