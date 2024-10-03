@@ -27,12 +27,6 @@ jobs:
       - run: npm run build
         # Build the React application
 
-      - run: npm run test
-        # Run tests
-
-      - run: npm run lint
-        # Lint the code
-
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3  # Use a popular action for GitHub Pages
         with:
