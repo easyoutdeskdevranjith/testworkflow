@@ -1,15 +1,11 @@
-# This workflow will do a clean installation of node dependencies, cache/restore them, build the source code and deploy the React application
-# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-nodejs
-
 name: React CI/CD
 
 on:
   push:
-    branches: [ "main" ]
+    branches: ["main"]
 
 jobs:
   build-and-deploy:
-
     runs-on: ubuntu-latest
 
     strategy:
@@ -17,19 +13,29 @@ jobs:
         node-version: [20.x]
 
     steps:
-    - uses: actions/checkout@v4
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v4
-      with: 
-        node-version: ${{ matrix.node-version }}
-        cache: 'npm'
-    - run: npm ci
-    - run: npm run build
-    - run: npm run test
-    - run: npm run lint
-    - name: Deploy to GitHub Pages
-      uses: testworkflow/deploy@v1
-      with:
-        token: ${{ secrets.GITHUB_TOKEN }}
-        deploy-branch: main
-        build-dir: ./build
+      - uses: actions/checkout@v4
+
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with: 
+          node-version: ${{ matrix.node-version }}
+          cache: 'npm'
+          
+      - run: npm ci
+        # Clean install of dependencies
+
+      - run: npm run build
+        # Build the React application
+
+      - run: npm run test
+        # Run tests
+
+      - run: npm run lint
+        # Lint the code
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3  # Use a popular action for GitHub Pages
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./build              # Ensure this points to your build directory
+          publish_branch: gh-pages          # Deploy to the gh-pages branch
